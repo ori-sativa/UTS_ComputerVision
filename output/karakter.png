@@ -1,0 +1,37 @@
+import cv2
+import numpy as np
+
+# Buat kanvas
+canvas = np.full((400, 400, 3), (162, 7, 12), dtype=np.uint8)
+
+# Kepala
+pts = np.array([[200, 100], [100, 300], [300, 300]], np.int32)
+pts = pts.reshape((-1, 1, 2))
+
+cv2.fillPoly(canvas, [pts], (255, 255, 255))
+
+# Titik tengah segitiga 
+center_x = 200
+center_y = 200
+
+# Mata 
+cv2.circle(canvas, (center_x - 40, center_y - 30), 20, (0, 0, 0), -1)
+cv2.circle(canvas, (center_x + 40, center_y - 30), 20, (0, 0, 0), -1)
+
+# Mulut
+cv2.rectangle(canvas, (center_x - 40, center_y + 20), (center_x + 40, center_y + 40), (0, 0, 255), -1)
+
+# Nama karakter
+nama = "Ceritanya Hiu"
+
+# Posisi teks (x, y)
+x_text = 195  
+y_text = 350  
+
+cv2.putText(canvas, nama, (x_text - 100, y_text), 
+            cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, (133, 252, 240), 2, cv2.LINE_AA)
+
+# Tampilkan hasil
+cv2.imshow("Segitiga Hiu", canvas)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
